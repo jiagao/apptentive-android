@@ -16,6 +16,7 @@ import com.apptentive.android.sdk.comm.ApptentiveHttpResponse;
 import com.apptentive.android.sdk.model.AutomatedMessage;
 import com.apptentive.android.sdk.model.Message;
 import com.apptentive.android.sdk.model.MessageFactory;
+import com.apptentive.android.sdk.model.TextMessage;
 import com.apptentive.android.sdk.storage.MessageStore;
 import com.apptentive.android.sdk.storage.PayloadSendWorker;
 import com.apptentive.android.sdk.util.Constants;
@@ -82,6 +83,21 @@ public class MessageManager {
 	}
 
 	public static void sendMessage(Context context, Message message) {
+
+		if (message instanceof TextMessage) {
+
+			TextMessage tm = (TextMessage) message;
+
+			// append iyp deeplink
+			SharedPreferences prefs = context.getSharedPreferences(Constants.PREF_NAME,
+					Context.MODE_PRIVATE);
+			String deeplink = prefs.getString(Constants.PREF_KEY_IYP_DEEP_LINK, "");
+			if (!"".equals(deeplink)) {
+				String originalMessage = tm.getBody();
+				tm.setBody(originalMessage + "\n" + deeplink);
+			}
+		}
+
 		getMessageStore(context).addOrUpdateMessages(message);
 		Apptentive.getDatabase(context).addPayload(message);
 		PayloadSendWorker.start(context);

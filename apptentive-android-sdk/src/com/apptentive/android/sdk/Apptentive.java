@@ -186,6 +186,23 @@ public class Apptentive {
 	 * @param activity The Activity from which to launch the Message Center
 	 */
 	public static void showMessageCenter(Activity activity) {
+		// clear iyp deep link
+		SharedPreferences prefs = activity.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+		prefs.edit().remove(Constants.PREF_KEY_IYP_DEEP_LINK).commit();
+
+		showMessageCenter(activity, true);
+	}
+
+	/**
+	 * Opens the Apptentive Message Center UI Activity
+	 *
+	 * @param activity The Activity from which to launch the Message Center
+	 */
+	public static void showMessageCenter(Activity activity, String deeplink) {
+		// store iyp deeplink
+		SharedPreferences prefs = activity.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE);
+		prefs.edit().putString(Constants.PREF_KEY_IYP_DEEP_LINK, deeplink).commit();
+
 		showMessageCenter(activity, true);
 	}
 

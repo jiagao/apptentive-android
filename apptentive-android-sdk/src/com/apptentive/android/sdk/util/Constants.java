@@ -49,6 +49,8 @@ public class Constants {
 	public static final String PREF_KEY_APP_CONFIG_PREFIX = "appConfiguration.";
 	public static final String PREF_KEY_APP_CONFIG_JSON = PREF_KEY_APP_CONFIG_PREFIX+"json";
 
+	public static final String PREF_KEY_IYP_DEEP_LINK = "iyp_deeplink";
+
 	public static final int CONFIG_DEFAULT_APP_CONFIG_EXPIRATION_MILLIS = 0;
 	public static final int CONFIG_DEFAULT_APP_CONFIG_EXPIRATION_DURATION_SECONDS = 86400; // 24 hours
 	public static final int CONFIG_DEFAULT_DAYS_BEFORE_PROMPT = 30;
